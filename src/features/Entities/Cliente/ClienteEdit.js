@@ -93,7 +93,7 @@ class ClienteEdit extends Component {
                 type="submit"
                 bsStyle="primary"
                 disabled={pristine || submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`}></i>
+                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                   <span> Guardar</span>
               </Button>
               <Button
@@ -101,7 +101,7 @@ class ClienteEdit extends Component {
                 bsStyle="default"
                 disabled={pristine || submitting}
                 onClick={reset}>
-                  <i className="fa fa-undo"></i>
+                  <i className="fa fa-undo" />
                   <span> Deshacer</span>
               </Button>
             </ButtonToolbar>
