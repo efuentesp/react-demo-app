@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { reduxForm, Field, initialize, reset } from 'redux-form';
+import { reduxForm, Field, reset } from 'redux-form';
 
 import { fetchClienteList } from './actions';
 
@@ -19,7 +19,7 @@ class ClienteSearch extends Component {
   }
 
   render() {
-    const { handleSubmit, reset, submitting } = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     return(
       <form

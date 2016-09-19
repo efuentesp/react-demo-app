@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+//import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
 import { reduxForm, Field, initialize, reset } from 'redux-form';
+import { toastr } from 'react-redux-toastr';
 import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
@@ -14,6 +16,7 @@ class ClienteEdit extends Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    //this.toastr = bindActionCreators(toastrActions, this.props.dispatch);
   }
 
   static contextTypes = {
@@ -35,6 +38,7 @@ class ClienteEdit extends Component {
     this.props.updateCliente(this.props.params.id, props)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
+        toastr.success("Cliente modificado", `El Cliente ${this.props.cliente.numero} fué modificado exitosamente.`);
       });
   }
 

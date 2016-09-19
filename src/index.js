@@ -7,12 +7,14 @@ import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import configureStore from './store/configureStore';
 import { syncHistoryWithStore } from 'react-router-redux';
+import ReduxToastr from 'react-redux-toastr';
 
 require('./favicon.ico');
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './assets/sass/bootstrap.scss';
 import './assets/sass/app.scss';
 import './assets/sass/themes/theme-e.scss';
+import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css';
 
 const store = configureStore();
 
@@ -21,6 +23,12 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <div>
+      <Router history={history} routes={routes} />
+      <ReduxToastr
+        timeOut={5000}
+        newestOnTop={true}
+        position="top-right" />
+    </div>
   </Provider>, document.getElementById('app')
 );
