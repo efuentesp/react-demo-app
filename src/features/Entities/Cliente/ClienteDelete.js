@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
 import { reduxForm, Field, initialize, reset } from 'redux-form';
+import { toastr } from 'react-redux-toastr';
 import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
@@ -35,6 +36,7 @@ class ClienteDelete extends Component {
     this.props.deleteCliente(this.props.params.id)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
+        toastr.success("Cliente borrado", `El Cliente ${this.props.cliente.numero} fué borrado exitosamente.`);
       });
   }
 

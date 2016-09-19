@@ -16,7 +16,6 @@ class ClienteEdit extends Component {
   constructor(props) {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    //this.toastr = bindActionCreators(toastrActions, this.props.dispatch);
   }
 
   static contextTypes = {
