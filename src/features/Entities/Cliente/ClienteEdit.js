@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
 import FormTextField from "../../Common/Form/FormTextField";
+import Loading from '../../Common/Loading/Loading';
 import { fetchCliente, updateCliente } from './actions';
 
 class ClienteEdit extends Component {
@@ -37,25 +38,21 @@ class ClienteEdit extends Component {
     this.props.updateCliente(this.props.params.id, props)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
-        toastr.success("Cliente modificado", `El Cliente ${this.props.cliente.numero} fué modificado exitosamente.`);
+        toastr.success("Cliente modificado", `El Cliente fué modificado exitosamente.`);
       });
   }
 
   render() {
     const { cliente, handleSubmit, reset, pristine, submitting } = this.props;
 
-    if (!cliente) {
+    if ((cliente || {}).loading) {
       return (
         <ContentWrapper>
           <h3>
             <span className="mr">Editar Cliente</span>
           </h3>
           <Panel header="Cliente">
-            <Row>
-              <Col sm={12}>
-                <i className="fa fa-refresh fa-spin fa-2x fa-fw" aria-hidden="true"></i>
-              </Col>
-            </Row>
+            <Loading />
           </Panel>
         </ContentWrapper>
       );

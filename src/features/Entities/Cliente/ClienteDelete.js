@@ -8,6 +8,7 @@ import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
 import FormTextField from "../../Common/Form/FormTextField";
+import Loading from '../../Common/Loading/Loading';
 import { fetchCliente, deleteCliente } from './actions';
 
 class ClienteDelete extends Component {
@@ -36,7 +37,7 @@ class ClienteDelete extends Component {
     this.props.deleteCliente(this.props.params.id)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
-        toastr.success("Cliente borrado", `El Cliente ${this.props.cliente.numero} fué borrado exitosamente.`);
+        toastr.success("Cliente borrado", `El Cliente fué borrado exitosamente.`);
       });
   }
 
@@ -50,11 +51,7 @@ class ClienteDelete extends Component {
             <span className="mr">Borrar Cliente</span>
           </h3>
           <Panel header="Cliente">
-            <Row>
-              <Col sm={12}>
-                <i className="fa fa-refresh fa-spin fa-2x fa-fw" aria-hidden="true"></i>
-              </Col>
-            </Row>
+            <Loading />
           </Panel>
         </ContentWrapper>
       );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
 import { reduxForm, Field, initialize, reset } from 'redux-form';
 import { toastr } from 'react-redux-toastr';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
@@ -25,7 +26,7 @@ class ClienteCreate extends Component {
     this.props.createCliente(props)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
-        toastr.success("Cliente creado", `El Cliente ${this.props.cliente.numero} fué creado exitosamente.`);
+        toastr.success("Cliente creado", `El Cliente fué creado exitosamente.`);
       });
   }
 

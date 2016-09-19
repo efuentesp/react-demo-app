@@ -15,6 +15,7 @@ import './assets/sass/bootstrap.scss';
 import './assets/sass/app.scss';
 import './assets/sass/themes/theme-e.scss';
 import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import '../node_modules/react-bootstrap-sweetalert/lib/css/animations.css';
 
 const store = configureStore();
 
@@ -26,7 +27,7 @@ render(
     <div>
       <Router history={history} routes={routes} />
       <ReduxToastr
-        timeOut={5000}
+        timeOut={3500}
         newestOnTop={true}
         position="top-right" />
     </div>

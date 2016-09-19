@@ -1,13 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import SweetAlert from 'react-bootstrap-sweetalert';
 import { Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
 
 import { fetchClienteList } from './actions';
 
+import Loading from '../../Common/Loading/Loading';
+
 class ClienteList extends Component {
 
   componentWillMount() {
+    this.props.fetchClienteList();
+  }
+
+  onRetryLoad() {
     this.props.fetchClienteList();
   }
 
@@ -34,13 +41,20 @@ class ClienteList extends Component {
   }
 
   render() {
-    if (!this.props.cliente.all) {
+    if ((this.props.cliente || {}).loading) {
       return (
-        <Row>
-          <Col sm={12}>
-            <i className="fa fa-refresh fa-spin fa-2x fa-fw" aria-hidden="true" />
-          </Col>
-        </Row>
+        <Loading />
+      );
+    }
+
+    if ((this.props.cliente || {}).error) {
+      return (
+        <SweetAlert
+          type="error"
+          title={this.props.cliente.error.message}
+          content="Comunicate con el Administrador del Sistema o intentalo más tarde."
+          confirmBtnText="Intentar de nuevo"
+          onConfirm={this.onRetryLoad.bind(this)} />
       );
     }
 
