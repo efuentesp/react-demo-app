@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
 import { reduxForm, Field } from 'redux-form';
 
+import Loading from '../../Loading/Loading';
 import ContentWrapper from "../../Layout/ContentWrapper";
 import FormTextField from "../../Form/FormTextField";
 import { fetchRole, updateRole } from './actions';
@@ -35,7 +36,7 @@ class RoleEdit extends Component {
     const { role, handleSubmit, reset, pristine, submitting } = this.props;
 
     if (!role) {
-      return <i className="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true" />;
+      return <Loading />;
     }
 
     return (
@@ -45,11 +46,14 @@ class RoleEdit extends Component {
              <Link to="/">Inicio</Link>
            </li>
            <li className="active">Seguridad</li>
-             <li>
-               <Link to="/roles">Administrar Roles</Link>
-             </li>
+           <li>
+             <Link to="/roles">Administrar Roles</Link>
+           </li>
            <li className="active">Editar Rol</li>
         </ol>
+        <h3>
+          <span className="mr">Editar Rol</span>
+        </h3>
         <Panel header="Editar Rol">
           <form
             role="form"

@@ -3,6 +3,8 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
 
+import Loading from '../../Loading/Loading';
+
 import { fetchRoleList } from './actions';
 
 class RoleList extends Component {
@@ -40,11 +42,7 @@ class RoleList extends Component {
   render() {
     if (!this.props.roles.all) {
       return (
-        <Row>
-          <Col sm={12}>
-            <i className="fa fa-refresh fa-spin fa-2x fa-fw" aria-hidden="true" />
-          </Col>
-        </Row>
+        <Loading />
       );
     }
 

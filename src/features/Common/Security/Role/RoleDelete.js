@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import { reduxForm, Field } from 'redux-form';
 
+import Loading from '../../Loading/Loading';
 import ContentWrapper from "../../Layout/ContentWrapper";
 import { fetchRole, deleteRole } from './actions';
 
@@ -34,7 +35,7 @@ class RoleDelete extends Component {
     const { role, handleSubmit, submitting } = this.props;
 
     if (!role) {
-      return <i className="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true" />;
+      return <Loading />;
     }
 
     const renderTextField = field => (
@@ -56,6 +57,9 @@ class RoleDelete extends Component {
              </li>
            <li className="active">Borrar Rol</li>
         </ol>
+        <h3>
+          <span className="mr">Borrar Rol</span>
+        </h3>
         <Panel header="Borrar Rol">
           <form
             role="form"
