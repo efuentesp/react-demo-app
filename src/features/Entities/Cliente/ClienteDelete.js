@@ -58,6 +58,7 @@ class ClienteDelete extends Component {
            <li>
              <Link to="/">Inicio</Link>
            </li>
+           <li className="active">Cliente</li>
            <li>
              <Link to="/cliente_mgmnt">Administrar Cliente</Link>
            </li>
@@ -102,7 +103,7 @@ class ClienteDelete extends Component {
 }
 
 ClienteDelete.propTypes = {
-  cliente: PropTypes.object.isRequired,
+  cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,

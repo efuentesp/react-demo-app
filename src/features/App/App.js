@@ -54,7 +54,7 @@ class App extends Component {
                 icon="fa fa-lock">
                 <SidebarSubMenu
                   route="/roles"
-                  title="Roles" />
+                  title="Administrar Roles" />
               </SidebarMenu>
         </Sidebar>
 

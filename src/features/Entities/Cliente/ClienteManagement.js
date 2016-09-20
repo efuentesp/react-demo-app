@@ -13,6 +13,7 @@ const ClienteManagement = () => {
          <li>
            <Link to="/">Inicio</Link>
          </li>
+         <li className="active">Cliente</li>
          <li className="active">Administrar Cliente</li>
       </ol>
       <h3>Administración de Cliente</h3>

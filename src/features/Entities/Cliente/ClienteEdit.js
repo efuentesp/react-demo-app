@@ -59,6 +59,7 @@ class ClienteEdit extends Component {
            <li>
              <Link to="/">Inicio</Link>
            </li>
+           <li className="active">Cliente</li>
            <li>
              <Link to="/cliente_mgmnt">Administrar Cliente</Link>
            </li>

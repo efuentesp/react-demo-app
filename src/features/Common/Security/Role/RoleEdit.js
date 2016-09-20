@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
 import { reduxForm, Field } from 'redux-form';
@@ -39,6 +40,16 @@ class RoleEdit extends Component {
 
     return (
       <ContentWrapper>
+        <ol className="breadcrumb pull-right">
+           <li>
+             <Link to="/">Inicio</Link>
+           </li>
+           <li className="active">Seguridad</li>
+             <li>
+               <Link to="/roles">Administrar Roles</Link>
+             </li>
+           <li className="active">Editar Rol</li>
+        </ol>
         <Panel header="Editar Rol">
           <form
             role="form"
@@ -74,7 +85,7 @@ class RoleEdit extends Component {
 
 RoleEdit.propTypes = {
   fetchRole: PropTypes.func.isRequired,
-  deleteRole: PropTypes.func.isRequired,
+  updateRole: PropTypes.func.isRequired,
 };
 
 RoleEdit.contextTypes = {
