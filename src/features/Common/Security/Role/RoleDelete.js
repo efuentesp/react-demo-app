@@ -77,8 +77,13 @@ class RoleDelete extends Component {
 }
 
 RoleDelete.propTypes = {
+  params: PropTypes.object.isRequired,
   fetchRole: PropTypes.func.isRequired,
   deleteRole: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  role: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired
 };
 
 RoleDelete.contextTypes = {

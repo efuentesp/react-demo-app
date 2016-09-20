@@ -88,8 +88,15 @@ class RoleEdit extends Component {
 }
 
 RoleEdit.propTypes = {
+  params: PropTypes.object.isRequired,
   fetchRole: PropTypes.func.isRequired,
   updateRole: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  role: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,  
 };
 
 RoleEdit.contextTypes = {

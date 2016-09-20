@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-//import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
@@ -110,6 +109,18 @@ class ClienteEdit extends Component {
 
 ClienteEdit.contextTypes = {
   router: PropTypes.object.isRequired
+};
+
+ClienteEdit.propTypes = {
+  params: PropTypes.object.isRequired,
+  fetchCliente: PropTypes.func.isRequired,
+  updateCliente: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  cliente: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  pristine: PropTypes.bool.isRequired,
 };
 
 const validate = values => {

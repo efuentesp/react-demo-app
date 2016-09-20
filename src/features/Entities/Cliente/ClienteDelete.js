@@ -103,6 +103,8 @@ class ClienteDelete extends Component {
 }
 
 ClienteDelete.propTypes = {
+  params: PropTypes.object.isRequired,
+  initialize: PropTypes.func.isRequired,
   cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,

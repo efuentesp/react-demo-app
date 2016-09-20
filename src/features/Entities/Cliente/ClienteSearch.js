@@ -45,7 +45,9 @@ class ClienteSearch extends Component {
 }
 
 ClienteSearch.propTypes = {
-  fetchClienteList: PropTypes.func.isRequired
+  fetchClienteList: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired
 };
 
 const form = reduxForm({
