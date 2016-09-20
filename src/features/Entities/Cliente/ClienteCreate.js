@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
-import { reduxForm, Field, initialize, reset } from 'redux-form';
+import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
+import { reduxForm, Field } from 'redux-form';
 import { toastr } from 'react-redux-toastr';
-import SweetAlert from 'react-bootstrap-sweetalert';
-import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
 import FormTextField from "../../Common/Form/FormTextField";
@@ -18,10 +16,6 @@ class ClienteCreate extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   onFormSubmit(props) {
     this.props.createCliente(props)
       .then(() => {
@@ -31,7 +25,7 @@ class ClienteCreate extends Component {
   }
 
   render() {
-    const { cliente, handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
       <ContentWrapper>
@@ -68,7 +62,7 @@ class ClienteCreate extends Component {
                 type="submit"
                 bsStyle="primary"
                 disabled={pristine || submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`}></i>
+                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                   <span> Guardar</span>
               </Button>
             </ButtonToolbar>
@@ -78,6 +72,17 @@ class ClienteCreate extends Component {
     );
   }
 }
+
+ClienteCreate.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  createCliente: PropTypes.func.isRequired
+};
+
+ClienteCreate.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 const validate = values => {
   const errors = {};
@@ -95,7 +100,7 @@ const validate = values => {
   }
 
   return errors;
-}
+};
 
 function mapStateToProps(state) {
   return { cliente: state.cliente.item };

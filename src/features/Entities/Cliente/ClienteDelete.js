@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
-import { reduxForm, Field, initialize, reset } from 'redux-form';
+import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
+import { reduxForm, Field } from 'redux-form';
 import { toastr } from 'react-redux-toastr';
-import classNames from 'classnames';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
 import FormTextField from "../../Common/Form/FormTextField";
@@ -18,10 +17,6 @@ class ClienteDelete extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   componentWillMount() {
     this.props.fetchCliente(this.props.params.id)
       .then(() => {
@@ -33,7 +28,7 @@ class ClienteDelete extends Component {
       });
   }
 
-  onFormSubmit(props) {
+  onFormSubmit() {
     this.props.deleteCliente(this.props.params.id)
       .then(() => {
         this.context.router.push('/cliente_mgmnt');
@@ -42,7 +37,7 @@ class ClienteDelete extends Component {
   }
 
   render() {
-    const { cliente, handleSubmit, pristine, submitting } = this.props;
+    const { cliente, handleSubmit, submitting } = this.props;
 
     if (!cliente) {
       return (
@@ -95,7 +90,7 @@ class ClienteDelete extends Component {
                 type="submit"
                 bsStyle="danger"
                 disabled={submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`}></i>
+                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`} />
                   <span> Borrar</span>
               </Button>
             </ButtonToolbar>
@@ -105,6 +100,19 @@ class ClienteDelete extends Component {
     );
   }
 }
+
+ClienteDelete.propTypes = {
+  cliente: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitting: PropTypes.bool.isRequired,
+  fetchCliente: PropTypes.func.isRequired,
+  deleteCliente: PropTypes.func.isRequired
+};
+
+ClienteDelete.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 const validate = values => {
   const errors = {};
@@ -122,7 +130,7 @@ const validate = values => {
   }
 
   return errors;
-}
+};
 
 function mapStateToProps(state) {
   return { cliente: state.cliente.item };

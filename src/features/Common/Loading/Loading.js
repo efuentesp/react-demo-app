@@ -6,7 +6,9 @@ const Loading = () => {
   return (
     <Row>
       <Col sm={12}>
-        <i className="fa fa-refresh fa-spin fa-2x fa-fw" aria-hidden="true" />
+        <div className="animationload">
+          <div className="osahanloading" />
+        </div>
       </Col>
     </Row>
   );

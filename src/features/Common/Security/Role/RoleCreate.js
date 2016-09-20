@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import { reduxForm, Field, reset } from 'redux-form';
-import classNames from 'classnames';
+import { Row, Col } from 'react-bootstrap';
+import { reduxForm, Field } from 'redux-form';
 
 import { fetchRoleList, createRole } from './actions';
 import FormSimpleAddBox from './components/FormSimpleAddBox';
@@ -14,10 +13,6 @@ class RoleCreate extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   onFormSubmit(props) {
     this.props.createRole(props)
       .then(() => {
@@ -28,18 +23,7 @@ class RoleCreate extends Component {
 
 
   render() {
-    const { handleSubmit, submitting } = this.props;
-
-    const renderTextField = field => (
-      <FormGroup
-        controlId={field.input.name}>
-        <ControlLabel></ControlLabel>
-        <FormControl
-          {...field.input}
-          placeholder={field.placeholder}
-          autoComplete="off" />
-      </FormGroup>
-    );
+    const { handleSubmit } = this.props;
 
     return (
       <Row>
@@ -59,6 +43,17 @@ class RoleCreate extends Component {
   }
 }
 
+RoleCreate.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  createRole: PropTypes.func.isRequired,
+  fetchRoleList: PropTypes.func.isRequired,
+  reset: PropTypes.func
+};
+
+RoleCreate.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 const validate = values => {
   const errors = {};
 
@@ -67,7 +62,7 @@ const validate = values => {
   }
 
   return errors;
-}
+};
 
 const form = reduxForm({
   form: 'RoleCreateForm',

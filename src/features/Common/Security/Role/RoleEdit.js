@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Panel, ButtonToolbar, Button } from 'react-bootstrap';
-import { reduxForm, Field, initialize, reset } from 'redux-form';
-import classNames from 'classnames';
+import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
+import { reduxForm, Field } from 'redux-form';
 
 import ContentWrapper from "../../Layout/ContentWrapper";
 import FormTextField from "../../Form/FormTextField";
@@ -14,10 +13,6 @@ class RoleEdit extends Component {
     super(props);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-
-  static contextTypes = {
-    router: PropTypes.object
-  };
 
   componentWillMount() {
     this.props.fetchRole(this.props.params.id)
@@ -39,7 +34,7 @@ class RoleEdit extends Component {
     const { role, handleSubmit, reset, pristine, submitting } = this.props;
 
     if (!role) {
-      return <i className="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true"></i>;
+      return <i className="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true" />;
     }
 
     return (
@@ -58,7 +53,7 @@ class RoleEdit extends Component {
                 type="submit"
                 bsStyle="primary"
                 disabled={pristine || submitting}>
-                <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`}></i>
+                <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                   <span> Guardar</span>
               </Button>
               <Button
@@ -66,7 +61,7 @@ class RoleEdit extends Component {
                 bsStyle="default"
                 disabled={pristine || submitting}
                 onClick={reset}>
-                  <i className="fa fa-undo"></i>
+                  <i className="fa fa-undo" />
                   <span> Deshacer</span>
               </Button>
             </ButtonToolbar>
@@ -77,6 +72,15 @@ class RoleEdit extends Component {
   }
 }
 
+RoleEdit.propTypes = {
+  fetchRole: PropTypes.func.isRequired,
+  deleteRole: PropTypes.func.isRequired,
+};
+
+RoleEdit.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
 const validate = values => {
   const errors = {};
 
@@ -85,7 +89,7 @@ const validate = values => {
   }
 
   return errors;
-}
+};
 
 function mapStateToProps(state) {
   return { role: state.roles.item };

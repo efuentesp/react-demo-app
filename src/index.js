@@ -10,10 +10,15 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import ReduxToastr from 'react-redux-toastr';
 
 require('./favicon.ico');
+require('./assets/img/logo.png');
+require('./assets/img/logo-single.png');
+require('./assets/img/user/efp.jpg');
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './assets/sass/bootstrap.scss';
 import './assets/sass/app.scss';
 import './assets/sass/themes/theme-e.scss';
+import './assets/sass/loading.scss';
+import './assets/sass/style.scss';
 import '../node_modules/react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import '../node_modules/react-bootstrap-sweetalert/lib/css/animations.css';
 

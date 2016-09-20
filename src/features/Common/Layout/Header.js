@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 
 const Header = () => {
 
-  const brand_logo = '../../assets/img/logo.png';
-  const brand_logo_collapsed = '../../assets/img/logo-single.png';
+  const brand_logo = 'logo.png';
+  const brand_logo_collapsed = 'logo-single.png';
 
   return (
     <header className="topnavbar-wrapper">
