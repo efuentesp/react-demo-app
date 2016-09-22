@@ -25,7 +25,7 @@ class ClienteCreate extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props;
+    const { handleSubmit, pristine, submitSucceeded } = this.props;
 
     return (
       <ContentWrapper>
@@ -62,8 +62,8 @@ class ClienteCreate extends Component {
               <Button
                 type="submit"
                 bsStyle="primary"
-                disabled={pristine || submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
+                disabled={pristine || submitSucceeded}>
+                  <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                   <span> Guardar</span>
               </Button>
             </ButtonToolbar>
@@ -77,7 +77,7 @@ class ClienteCreate extends Component {
 ClienteCreate.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
   createCliente: PropTypes.func.isRequired
 };
 

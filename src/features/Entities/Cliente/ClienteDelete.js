@@ -37,7 +37,7 @@ class ClienteDelete extends Component {
   }
 
   render() {
-    const { cliente, handleSubmit, submitting } = this.props;
+    const { cliente, handleSubmit, submitSucceeded } = this.props;
 
     if (!cliente) {
       return (
@@ -90,8 +90,8 @@ class ClienteDelete extends Component {
               <Button
                 type="submit"
                 bsStyle="danger"
-                disabled={submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`} />
+                disabled={submitSucceeded}>
+                  <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`} />
                   <span> Borrar</span>
               </Button>
             </ButtonToolbar>
@@ -108,7 +108,7 @@ ClienteDelete.propTypes = {
   cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
   fetchCliente: PropTypes.func.isRequired,
   deleteCliente: PropTypes.func.isRequired
 };

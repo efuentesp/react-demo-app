@@ -37,7 +37,7 @@ class ClienteEdit extends Component {
   }
 
   render() {
-    const { cliente, handleSubmit, reset, pristine, submitting } = this.props;
+    const { cliente, handleSubmit, reset, pristine, submitSucceeded } = this.props;
 
     if ((cliente || {}).loading) {
       return (
@@ -87,14 +87,14 @@ class ClienteEdit extends Component {
               <Button
                 type="submit"
                 bsStyle="primary"
-                disabled={pristine || submitting}>
-                  <i className={`${submitting ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
+                disabled={pristine || submitSucceeded}>
+                  <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-save'}`} />
                   <span> Guardar</span>
               </Button>
               <Button
                 type="button"
                 bsStyle="default"
-                disabled={pristine || submitting}
+                disabled={pristine || submitSucceeded}
                 onClick={reset}>
                   <i className="fa fa-undo" />
                   <span> Deshacer</span>
@@ -119,7 +119,7 @@ ClienteEdit.propTypes = {
   cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
 };
 
