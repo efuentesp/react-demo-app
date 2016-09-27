@@ -11,6 +11,11 @@ import ClienteCreate from './features/Entities/Cliente/ClienteCreate';
 import ClienteEdit from './features/Entities/Cliente/ClienteEdit';
 import ClienteDelete from './features/Entities/Cliente/ClienteDelete';
 
+import OrdenManagement from './features/Entities/Orden/OrdenManagement';
+import OrdenCreate from './features/Entities/Orden/OrdenCreate';
+import OrdenEdit from './features/Entities/Orden/OrdenEdit';
+import OrdenDelete from './features/Entities/Orden/OrdenDelete';
+
 // import ProductoManagement from './features/Entities/Producto/ProductoManagement';
 // import ProductoCreate from './features/Entities/Producto/ProductoCreate';
 // import ProductoEdit from './features/Entities/Producto/ProductoEdit';
@@ -28,6 +33,12 @@ export default (
     <Route path="cliente" component={ClienteCreate} />
     <Route path="cliente/edit/:id" component={ClienteEdit} />
     <Route path="cliente/delete/:id" component={ClienteDelete} />
+
+    <Route path="orden_mgmnt" component={OrdenManagement} />
+    <Route path="orden" component={OrdenCreate} />
+    <Route path="orden/:id" component={OrdenCreate} />
+    <Route path="orden/edit/:id" component={OrdenEdit} />
+    <Route path="orden/delete/:id" component={OrdenDelete} />
 
     <Route path="roles" component={RoleManagement} />
     <Route path="roles/edit/:id" component={RoleEdit} />

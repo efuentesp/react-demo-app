@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import ClienteReducer from '../features/Entities/Cliente/reducer';
+import OrdenReducer from '../features/Entities/Orden/reducer';
 
 import RoleReducer from '../features/Common/Security/Role/reducer';
 
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   form: formReducer,
   toastr: toastrReducer,
   cliente: ClienteReducer,
+  orden: OrdenReducer,
   roles: RoleReducer
 });
 

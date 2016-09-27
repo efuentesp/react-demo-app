@@ -18,7 +18,7 @@ class App extends Component {
         <Header />
 
         <Sidebar
-          avatar="efp.jpg"
+          avatar="/efp.jpg"
           user_name="Edgar Felipe Fuentes Perea (EFP)"
           user_role="Especialista de Práctica" >
           <SidebarSection

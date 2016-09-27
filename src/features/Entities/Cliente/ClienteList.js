@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import SweetAlert from 'react-bootstrap-sweetalert';
-import { Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
+import { Row, Col, Table, ButtonToolbar, Pagination } from 'react-bootstrap';
 
 import { fetchClienteList } from './actions';
 
@@ -27,6 +27,10 @@ class ClienteList extends Component {
           <td>{item.direccion}</td>
           <td>
             <ButtonToolbar>
+              <Link className="btn btn-default" to={`/orden_mgmnt?cliente_id=${item.id}`}>
+                <em className="fa fa-check-circle-o" />
+                <span> Ordenes</span>
+              </Link>
               <Link className="btn btn-default" to={`/cliente/edit/${item.id}`}>
                 <em className="fa fa-pencil" />
               </Link>
@@ -59,23 +63,33 @@ class ClienteList extends Component {
     }
 
     return (
-      <Row>
-        <Col sm={12}>
-          <Table responsive striped>
-            <thead>
-              <tr>
-                <th>Número</th>
-                <th>Nombre</th>
-                <th>Dirección</th>
-                <th>Operaciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.renderList()}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
+      <div>
+        <Row>
+          <Col sm={12}>
+            <Table responsive striped>
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Nombre</th>
+                  <th>Dirección</th>
+                  <th>Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderList()}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
+            <Pagination
+              items={30}
+              maxButtons={5}
+              boundaryLinks />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

@@ -1,0 +1,153 @@
+
+import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { Panel, ButtonToolbar, Button } from 'react-bootstrap';
+import { reduxForm, Field } from 'redux-form';
+import { toastr } from 'react-redux-toastr';
+
+import ContentWrapper from "../../Common/Layout/ContentWrapper";
+import FormTextField from "../../Common/Form/FormTextField";
+import Loading from '../../Common/Loading/Loading';
+import { fetchOrden, deleteOrden } from './actions';
+
+class OrdenDelete extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchOrden(this.props.params.id)
+      .then(() => {
+        this.props.initialize({
+          "cliente_id": this.props.orden.cliente_id,
+          "fecha": this.props.orden.fecha,
+          "almacen": this.props.orden.almacen,
+          "numero": this.props.orden.numero
+        });
+      });
+  }
+
+  onFormSubmit() {
+    this.props.deleteOrden(this.props.params.id)
+      .then(() => {
+        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.params.id : "/orden_mgmnt";
+        this.context.router.push(orden_mgmnt);
+        toastr.success("Orden borrado", `El Orden fué borrado exitosamente.`);
+      });
+  }
+
+  render() {
+    const { orden, handleSubmit, submitSucceeded } = this.props;
+
+    if (!orden) {
+      return (
+        <ContentWrapper>
+          <h3>
+            <span className="mr">Borrar Orden</span>
+          </h3>
+          <Panel header="Orden">
+            <Loading />
+          </Panel>
+        </ContentWrapper>
+      );
+    }
+
+    return (
+      <ContentWrapper>
+        <ol className="breadcrumb pull-right">
+           <li>
+             <Link to="/">Inicio</Link>
+           </li>
+           <li className="active">Orden</li>
+           <li>
+             <Link to="/orden_mgmnt">Administrar Orden</Link>
+           </li>
+           <li className="active">Borrar Orden</li>
+        </ol>
+        <h3>
+          <span className="mr">Borrar Orden</span>
+        </h3>
+        <Panel header="Orden">
+          <form
+            role="form"
+            onSubmit={handleSubmit(this.onFormSubmit)}>
+            <Field
+              type="label"
+              name="cliente_id"
+              component={FormTextField}
+              label="Cliente" />
+            <Field
+              type="label"
+              name="numero"
+              component={FormTextField}
+              label="Numero" />
+            <Field
+              type="label"
+              name="fecha"
+              component={FormTextField}
+              label="Fecha" />
+            <Field
+              type="label"
+              name="almacen"
+              component={FormTextField}
+              label="Almacen" />
+            <ButtonToolbar>
+              <Button
+                type="submit"
+                bsStyle="danger"
+                disabled={submitSucceeded}>
+                  <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`} />
+                  <span> Borrar</span>
+              </Button>
+            </ButtonToolbar>
+          </form>
+        </Panel>
+      </ContentWrapper>
+    );
+  }
+}
+
+OrdenDelete.propTypes = {
+  params: PropTypes.object.isRequired,
+  initialize: PropTypes.func.isRequired,
+  orden: PropTypes.object,
+  handleSubmit: PropTypes.func.isRequired,
+  pristine: PropTypes.bool.isRequired,
+  submitSucceeded: PropTypes.bool.isRequired,
+  fetchOrden: PropTypes.func.isRequired,
+  deleteOrden: PropTypes.func.isRequired
+};
+
+OrdenDelete.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+const validate = values => {
+  const errors = {};
+
+  if (!values.fecha) {
+    errors.fecha = 'Campo requerido.';
+  }
+  if (!values.almacen) {
+    errors.almacen = 'Campo requerido.';
+  }
+  if (!values.numero) {
+    errors.numero = 'Campo requerido.';
+  }
+
+  return errors;
+};
+
+function mapStateToProps(state) {
+  return { orden: state.orden.item };
+}
+
+const form = reduxForm({
+  form: 'OrdenDeleteForm',
+  validate
+});
+
+export default connect(mapStateToProps, { fetchOrden, deleteOrden })(form(OrdenDelete));
