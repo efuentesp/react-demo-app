@@ -36,7 +36,7 @@ export function fetchClienteListFailure(error) {
 
 export function fetchClienteList(term) {
 
-  let url = `${ROOT_URL}/cliente`;
+  let url = `${ROOT_URL}/cliente?_page=1`;
   if (term) {
     url = `${url}?q=${term}`;
   }
