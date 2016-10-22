@@ -25,7 +25,7 @@ class OrdenSearch extends Component {
       <form
         role="form"
         className="input-group"
-        onSubmit={handleSubmit(this.onFormSubmit)}>
+        onSubmit={handleSubmit(this.props.onSearchSubmit)}>
         <Field
           name="term"
           component="Input"
@@ -48,7 +48,8 @@ OrdenSearch.propTypes = {
   clienteId: PropTypes.string,
   fetchOrdenListByCliente: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
+  submitting: PropTypes.bool.isRequired,
+  onSearchSubmit: PropTypes.func.isRequired
 };
 
 const form = reduxForm({

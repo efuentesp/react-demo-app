@@ -33,7 +33,7 @@ class OrdenDelete extends Component {
   onFormSubmit() {
     this.props.deleteOrden(this.props.params.id)
       .then(() => {
-        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.params.id : "/orden_mgmnt";
+        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.orden.cliente_id : "/orden_mgmnt";
         this.context.router.push(orden_mgmnt);
         toastr.success("Orden borrado", `El Orden fué borrado exitosamente.`);
       });

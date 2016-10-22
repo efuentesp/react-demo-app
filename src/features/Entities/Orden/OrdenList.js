@@ -5,28 +5,9 @@ import { connect } from 'react-redux';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import { Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
 
-import { fetchOrdenList, fetchOrdenListByCliente } from './actions';
-
 import Loading from '../../Common/Loading/Loading';
 
 class OrdenList extends Component {
-
-  componentWillMount() {
-    if (this.props.clienteId) {
-      this.props.fetchOrdenListByCliente(this.props.clienteId);
-    } else {
-      this.props.fetchOrdenList();
-    }
-  }
-
-  onRetryLoad() {
-    if (this.props.clienteId) {
-      this.props.fetchOrdenListByCliente(this.props.clienteId);
-    } else {
-      this.props.fetchOrdenList();
-    }
-  }
-
   renderList() {
     return this.props.orden.all.map((item) => {
       return (
@@ -93,9 +74,8 @@ class OrdenList extends Component {
 
 OrdenList.propTypes = {
   clienteId: PropTypes.string,
-  fetchOrdenList: PropTypes.func,
-  fetchOrdenListByCliente: PropTypes.func.isRequired,
-  orden: PropTypes.object.isRequired
+  orden: PropTypes.object.isRequired,
+  searchTerm: PropTypes.string
 };
 
 function mapStateToProps(state) {
@@ -104,4 +84,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchOrdenList, fetchOrdenListByCliente })(OrdenList);
+export default connect(mapStateToProps)(OrdenList);

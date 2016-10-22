@@ -34,11 +34,11 @@ export function fetchClienteListFailure(error) {
   return { type: FETCH_CLIENTE_LIST_FAILURE, payload: error };
 }
 
-export function fetchClienteList(term) {
+export function fetchClienteList(page, term) {
 
-  let url = `${ROOT_URL}/cliente?_page=1`;
+  let url = `${ROOT_URL}/cliente?_page=${page}`;
   if (term) {
-    url = `${url}?q=${term}`;
+    url = `${url}&q=${term}`;
   }
 
   const request = axios({
@@ -168,7 +168,12 @@ export function deleteClienteRequest() {
 }
 
 export function deleteClienteSuccess(payload) {
-  return { type: DELETE_CLIENTE_SUCCESS, payload };
+  if (payload.status == 200) {
+    return { type: DELETE_CLIENTE_SUCCESS, payload };
+  } else {
+    console.log("Error de Validación en el Servidor");
+    console.log(payload);
+  }
 }
 
 export function deleteClienteFailure(error) {

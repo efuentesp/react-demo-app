@@ -7,7 +7,7 @@ import {
   FETCH_ORDEN_FAILURE
 } from './actions';
 
-const INITIAL_STATE = { all: [], item: null, loading: false, error:null };
+const INITIAL_STATE = { all: [], item: null, loading: false, error:null, items_count: 0 };
 
 export default function (state = INITIAL_STATE, action) {
   let error;
@@ -17,7 +17,11 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, all: [], loading: true, error: null };
 
     case FETCH_ORDEN_LIST_SUCCESS:
-      return { ...state, all: action.payload.data, loading: false, error: null };
+      return { ...state,
+               all: action.payload.data,
+               loading: false,
+               error: null,
+               items_count: (Number.parseInt(action.payload.headers['x-total-count']) || 0) };
 
     case FETCH_ORDEN_LIST_FAILURE:
       error = action.payload.data || { message: action.payload.message };

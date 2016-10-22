@@ -2,19 +2,66 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Col, Row, Panel } from 'react-bootstrap';
+import { Col, Row, Panel, Pagination } from 'react-bootstrap';
 
 import ContentWrapper from "../../Common/Layout/ContentWrapper";
 import { fetchCliente } from '../Cliente/actions';
 import OrdenSearch from './OrdenSearch';
 import OrdenList from './OrdenList';
 
+import { fetchOrdenList, fetchOrdenListByCliente } from './actions';
+
 class OrdenManagement extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      current_page: 1
+    };
+  }
+
   componentWillMount() {
-    if (this.props.location.query.cliente_id) {
-      this.props.fetchCliente(this.props.location.query.cliente_id);
+    const cliente_id = this.props.location.query.cliente_id;
+    if (cliente_id) {
+      this.props.fetchCliente(cliente_id);
     }
+    this.getOrdenList(cliente_id);
+  }
+
+  getOrdenList(cliente_id, search_term) {
+    if (cliente_id) {
+      this.props.fetchOrdenListByCliente(cliente_id, search_term);
+    } else {
+      this.props.fetchOrdenList(search_term);
+    }
+  }
+
+  renderPagination() {
+    const pages = Math.ceil((this.props.orden || {}).items_count / this.props.items_per_page);
+    if (pages > 1) {
+      return(
+        <Row>
+          <Pagination
+            activePage={this.state.current_page}
+            items={pages}
+            maxButtons={this.props.maxButtons}
+            boundaryLinks
+            onSelect={this.onPaginationClick.bind(this)} />
+        </Row>
+      );
+    }
+  }
+
+  onSearchSubmit(form) {
+    const cliente_id = this.props.location.query.cliente_id;
+    this.getOrdenList(cliente_id, form.term);
+  }
+
+  onPaginationClick(page) {
+    this.setState({
+      current_page: page
+    });
   }
 
   render() {
@@ -35,7 +82,8 @@ class OrdenManagement extends Component {
           <Col sm={12}>
             <Row>
               <OrdenSearch
-                clienteId={this.props.location.query.cliente_id} />
+                clienteId={this.props.location.query.cliente_id}
+                onSearchSubmit={this.onSearchSubmit.bind(this)} />
               <br />
             </Row>
             <Row>
@@ -44,9 +92,9 @@ class OrdenManagement extends Component {
               </Link>
             </Row>
             <Row>
-              <OrdenList
-                clienteId={this.props.location.query.cliente_id} />
+              <OrdenList />
             </Row>
+            {this.renderPagination()}
           </Col>
         </Panel>
       </ContentWrapper>
@@ -54,14 +102,29 @@ class OrdenManagement extends Component {
   }
 }
 
+OrdenManagement.defaultProps = {
+  items_per_page: 10,
+  maxButtons: 10
+};
+
 OrdenManagement.propTypes = {
   location: PropTypes.object,
   cliente: PropTypes.object,
-  fetchCliente: PropTypes.func.isRequired
+  orden: PropTypes.object,
+  fetchCliente: PropTypes.func.isRequired,
+  fetchOrdenList: PropTypes.func,
+  fetchOrdenListByCliente: PropTypes.func.isRequired,
+  items_per_page: PropTypes.number.isRequired,
+  maxButtons: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state) {
-  return { cliente: state.cliente.item };
+  return {
+    cliente: state.cliente.item,
+    orden: state.orden
+  };
 }
 
-export default connect(mapStateToProps, { fetchCliente })(OrdenManagement);
+export default connect( mapStateToProps,
+                        { fetchCliente, fetchOrdenList, fetchOrdenListByCliente }
+                      )(OrdenManagement);
