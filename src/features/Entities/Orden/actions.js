@@ -61,6 +61,7 @@ export function fetchOrdenListByCliente(cliente_id, term) {
   if (term) {
     url = `${url}&q=${term}`;
   }
+  url = `${url}&_page=1`;
 
   const request = axios({
     method: 'get',

@@ -12,7 +12,7 @@ class ClienteSearch extends Component {
   }
 
   onFormSubmit(props) {
-    this.props.fetchClienteList(props.term)
+    this.props.fetchClienteList(1, props.term)
       .then(() => {
         reset;
       });

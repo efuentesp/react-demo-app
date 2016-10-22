@@ -33,7 +33,7 @@ class OrdenEdit extends Component {
   onFormSubmit(props) {
     this.props.updateOrden(this.props.params.id, props)
       .then(() => {
-        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.params.id : "/orden_mgmnt";
+        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.orden.cliente_id : "/orden_mgmnt";
         this.context.router.push(orden_mgmnt);
         toastr.success("Orden modificado", `El Orden fué modificado exitosamente.`);
       });

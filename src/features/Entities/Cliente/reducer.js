@@ -21,7 +21,7 @@ export default function (state = INITIAL_STATE, action) {
         all: action.payload.data,
         loading: false,
         error: null,
-        total_count: Number.parseInt(action.payload.headers['x-total-count']) };
+        total_count: (Number.parseInt(action.payload.headers['x-total-count']) || 0) };
 
     case FETCH_CLIENTE_LIST_FAILURE:
       error = action.payload.data || { message: action.payload.message };

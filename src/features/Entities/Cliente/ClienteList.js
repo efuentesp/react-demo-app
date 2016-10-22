@@ -10,12 +10,27 @@ import Loading from '../../Common/Loading/Loading';
 
 class ClienteList extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      current_page: 1
+    };
+  }
+
   componentWillMount() {
-    this.props.fetchClienteList();
+    this.props.fetchClienteList(this.state.current_page);
   }
 
   onRetryLoad() {
-    this.props.fetchClienteList();
+    this.props.fetchClienteList(this.state.current_page);
+  }
+
+  onPaginationClick(pageSelected) {
+    this.props.fetchClienteList(pageSelected);
+    this.setState({
+      current_page: pageSelected
+    });
   }
 
   renderList() {
@@ -45,6 +60,8 @@ class ClienteList extends Component {
   }
 
   render() {
+    // console.log((this.props.cliente || {}).total_count);
+
     if ((this.props.cliente || {}).loading) {
       return (
         <Loading />
@@ -84,9 +101,11 @@ class ClienteList extends Component {
         <Row>
           <Col sm={12}>
             <Pagination
-              items={30}
+              activePage={this.state.current_page}
+              items={Math.ceil((this.props.cliente || {}).total_count / this.props.items_per_page)}
               maxButtons={5}
-              boundaryLinks />
+              boundaryLinks
+              onSelect={this.onPaginationClick.bind(this)} />
           </Col>
         </Row>
       </div>
@@ -94,9 +113,14 @@ class ClienteList extends Component {
   }
 }
 
+ClienteList.defaultProps = {
+  items_per_page: 10
+};
+
 ClienteList.propTypes = {
   fetchClienteList: PropTypes.func.isRequired,
-  cliente: PropTypes.object.isRequired
+  cliente: PropTypes.object.isRequired,
+  items_per_page: PropTypes.number.isRequired
 };
 
 function mapStateToProps(state) {
