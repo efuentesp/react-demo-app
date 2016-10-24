@@ -34,11 +34,11 @@ export function fetchOrdenListFailure(error) {
   return { type: FETCH_ORDEN_LIST_FAILURE, payload: error };
 }
 
-export function fetchOrdenList(term) {
+export function fetchOrdenList(page, term) {
 
-  let url = `${ROOT_URL}/orden`;
+  let url = `${ROOT_URL}/orden?_page=${page}`;
   if (term) {
-    url = `${url}?q=${term}`;
+    url = `${url}&q=${term}`;
   }
 
   const request = axios({
@@ -55,13 +55,12 @@ export function fetchOrdenList(term) {
   };
 }
 
-export function fetchOrdenListByCliente(cliente_id, term) {
+export function fetchOrdenListByCliente(page, cliente_id, term) {
 
-  let url = `${ROOT_URL}/orden?cliente_id=${cliente_id}`;
+  let url = `${ROOT_URL}/orden?_page=${page}&cliente_id=${cliente_id}`;
   if (term) {
     url = `${url}&q=${term}`;
   }
-  url = `${url}&_page=1`;
 
   const request = axios({
     method: 'get',
