@@ -17,7 +17,8 @@ class OrdenManagement extends Component {
     super(props);
 
     this.state = {
-      current_page: 1
+      current_page: 1,
+      search_term: ""
     };
   }
 
@@ -26,14 +27,14 @@ class OrdenManagement extends Component {
     if (cliente_id) {
       this.props.fetchCliente(cliente_id);
     }
-    this.getOrdenList(cliente_id);
+    this.getOrdenList(this.state.current_page, cliente_id);
   }
 
-  getOrdenList(cliente_id, search_term) {
+  getOrdenList(page, cliente_id, search_term) {
     if (cliente_id) {
-      this.props.fetchOrdenListByCliente(cliente_id, search_term);
+      this.props.fetchOrdenListByCliente(page, cliente_id, search_term);
     } else {
-      this.props.fetchOrdenList(search_term);
+      this.props.fetchOrdenList(page, search_term);
     }
   }
 
@@ -54,14 +55,21 @@ class OrdenManagement extends Component {
   }
 
   onSearchSubmit(form) {
+    const page = 1;
+    this.setState({
+      search_term: form.term,
+      current_page: page
+    });
     const cliente_id = this.props.location.query.cliente_id;
-    this.getOrdenList(cliente_id, form.term);
+    this.getOrdenList(page, cliente_id, form.term);
   }
 
   onPaginationClick(page) {
     this.setState({
       current_page: page
     });
+    const cliente_id = this.props.location.query.cliente_id;
+    this.getOrdenList(page, cliente_id, this.state.search_term);
   }
 
   render() {

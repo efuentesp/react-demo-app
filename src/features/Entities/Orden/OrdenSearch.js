@@ -1,22 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { reduxForm, Field, reset } from 'redux-form';
-
-import { fetchOrdenListByCliente } from './actions';
+import { reduxForm, Field } from 'redux-form';
 
 class OrdenSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
-
-  onFormSubmit(props) {
-    this.props.fetchOrdenListByCliente(this.props.clienteId, props.term)
-      .then(() => {
-        reset;
-      });
-  }
 
   render() {
     const { handleSubmit, submitting } = this.props;
@@ -46,7 +33,6 @@ class OrdenSearch extends Component {
 
 OrdenSearch.propTypes = {
   clienteId: PropTypes.string,
-  fetchOrdenListByCliente: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   onSearchSubmit: PropTypes.func.isRequired
@@ -56,4 +42,4 @@ const form = reduxForm({
   form: 'OrdenSearchForm',
 });
 
-export default connect(null, { fetchOrdenListByCliente })(form(OrdenSearch));
+export default connect(null, null)(form(OrdenSearch));
