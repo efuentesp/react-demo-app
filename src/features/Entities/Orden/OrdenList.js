@@ -8,6 +8,41 @@ import { Row, Col, Table, ButtonToolbar } from 'react-bootstrap';
 import Loading from '../../Common/Loading/Loading';
 
 class OrdenList extends Component {
+
+  renderEditItem(item_id) {
+    const cliente_id = this.props.clienteId;
+    if (cliente_id) {
+      return (
+        <Link className="btn btn-default" to={`/orden/edit/${item_id}?cliente_id=${cliente_id}`}>
+          <em className="fa fa-pencil" />
+        </Link>
+      );
+    } else {
+      return (
+        <Link className="btn btn-default" to={`/orden/edit/${item_id}`}>
+          <em className="fa fa-pencil" />
+        </Link>
+      );
+    }
+  }
+
+  renderDeleteItem(item_id) {
+    const cliente_id = this.props.clienteId;
+    if (cliente_id) {
+      return (
+        <Link className="btn btn-default" to={`/orden/delete/${item_id}?cliente_id=${cliente_id}`}>
+          <em className="fa fa-trash" />
+        </Link>
+      );
+    } else {
+      return (
+        <Link className="btn btn-default" to={`/orden/delete/${item_id}`}>
+          <em className="fa fa-trash" />
+        </Link>
+      );
+    }
+  }
+
   renderList() {
     return this.props.orden.all.map((item) => {
       return (
@@ -18,12 +53,8 @@ class OrdenList extends Component {
           <td>{item.almacen}</td>
           <td>
             <ButtonToolbar>
-              <Link className="btn btn-default" to={`/orden/edit/${item.id}`}>
-                <em className="fa fa-pencil" />
-              </Link>
-              <Link className="btn btn-default" to={`/orden/delete/${item.id}`}>
-                <em className="fa fa-trash" />
-              </Link>
+              { this.renderEditItem(item.id) }
+              { this.renderDeleteItem(item.id) }
             </ButtonToolbar>
           </td>
         </tr>

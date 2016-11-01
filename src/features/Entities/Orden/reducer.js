@@ -4,7 +4,10 @@ import {
   FETCH_ORDEN_LIST_FAILURE,
   FETCH_ORDEN_REQUEST,
   FETCH_ORDEN_SUCCESS,
-  FETCH_ORDEN_FAILURE
+  FETCH_ORDEN_FAILURE,
+  DELETE_ORDEN_REQUEST,
+  DELETE_ORDEN_SUCCESS,
+  DELETE_ORDEN_FAILURE
 } from './actions';
 
 const INITIAL_STATE = { all: [], item: null, loading: false, error:null, items_count: 0 };
@@ -28,7 +31,7 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, all: [], loading: false, error: error };
 
     case FETCH_ORDEN_REQUEST:
-      return { ...state, item: null, loading: true, error: null};
+      return { ...state, item: null, loading: true, error: null };
 
     case FETCH_ORDEN_SUCCESS:
       return { ...state, item: action.payload.data, loading: false, error: null };
@@ -36,6 +39,20 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_ORDEN_FAILURE:
       error = action.payload.data || { message: action.payload.message };
       return { ...state, item: null, loading: false, error: error };
+
+    case DELETE_ORDEN_REQUEST:
+      // console.log("DELETE_ORDEN_REQUEST");
+      return { ...state, item: null, loading: true, error: null };
+
+    case DELETE_ORDEN_SUCCESS:
+      // console.log("DELETE_ORDEN_SUCCESS");
+      // console.log(action);
+      return { ...state, item: action.payload, loading: false, error: null };
+
+    case DELETE_ORDEN_FAILURE:
+      // console.log("DELETE_ORDEN_FAILURE");
+      // console.log(action);
+      return { ...state, item: null, loading: false, error: action.payload };
   }
 
   return state;
