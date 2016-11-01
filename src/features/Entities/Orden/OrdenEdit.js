@@ -31,15 +31,17 @@ class OrdenEdit extends Component {
   }
 
   onFormSubmit(props) {
+    const cliente_id = this.props.location.query.cliente_id;
     this.props.updateOrden(this.props.params.id, props)
       .then(() => {
-        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.orden.cliente_id : "/orden_mgmnt";
+        const orden_mgmnt = (cliente_id) ? "/orden_mgmnt?cliente_id=" + cliente_id : "/orden_mgmnt";
         this.context.router.push(orden_mgmnt);
         toastr.success("Orden modificado", `El Orden fué modificado exitosamente.`);
       });
   }
 
   render() {
+    const cliente_id = this.props.location.query.cliente_id;
     const { orden, handleSubmit, reset, pristine, submitSucceeded } = this.props;
 
     if ((orden || {}).loading) {
@@ -73,6 +75,7 @@ class OrdenEdit extends Component {
             role="form"
             onSubmit={handleSubmit(this.onFormSubmit)}>
             <Field
+              type={(cliente_id)? "label" : ""}
               name="cliente_id"
               component={FormTextField}
               label="Cliente" />
@@ -117,6 +120,7 @@ OrdenEdit.contextTypes = {
 };
 
 OrdenEdit.propTypes = {
+  location: PropTypes.object,
   params: PropTypes.object.isRequired,
   fetchOrden: PropTypes.func.isRequired,
   updateOrden: PropTypes.func.isRequired,

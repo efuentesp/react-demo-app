@@ -31,11 +31,20 @@ class OrdenDelete extends Component {
   }
 
   onFormSubmit() {
+    const cliente_id = this.props.location.query.cliente_id;
     this.props.deleteOrden(this.props.params.id)
       .then(() => {
-        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.orden.cliente_id : "/orden_mgmnt";
-        this.context.router.push(orden_mgmnt);
-        toastr.success("Orden borrado", `El Orden fué borrado exitosamente.`);
+        // console.log(this.props.orden);
+        if (this.props.orden.status == 200){
+          const orden_mgmnt = (cliente_id) ? "/orden_mgmnt?cliente_id=" + cliente_id : "/orden_mgmnt";
+          this.context.router.push(orden_mgmnt);
+          toastr.success("Orden borrada", `El Orden fué borrado exitosamente.`);
+        } else {
+          const toastrOptions = {
+            timeOut: 8000
+          };
+          toastr.error("Error al borrar Orden", `${this.props.orden.data}`, toastrOptions);
+        }
       });
   }
 
@@ -99,7 +108,7 @@ class OrdenDelete extends Component {
                 type="submit"
                 bsStyle="danger"
                 disabled={submitSucceeded}>
-                  <i className={`${submitSucceeded ? 'fa fa-refresh fa-spin' : 'fa fa-trash'}`} />
+                  <i className="fa fa-trash" />
                   <span> Borrar</span>
               </Button>
             </ButtonToolbar>
@@ -111,6 +120,7 @@ class OrdenDelete extends Component {
 }
 
 OrdenDelete.propTypes = {
+  location: PropTypes.object,
   params: PropTypes.object.isRequired,
   initialize: PropTypes.func.isRequired,
   orden: PropTypes.object,

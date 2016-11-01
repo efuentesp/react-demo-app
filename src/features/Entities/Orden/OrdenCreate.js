@@ -19,28 +19,31 @@ class OrdenCreate extends Component {
   }
 
   componentWillMount() {
-    if (this.props.params.id) {
-      this.props.fetchCliente(this.props.params.id)
+    const cliente_id = this.props.location.query.cliente_id;
+    if (cliente_id) {
+      this.props.fetchCliente(cliente_id)
       .then(() => {
         this.props.initialize({
-          "cliente_id": this.props.cliente.id
+          "cliente_id": cliente_id
         });
       });
     }
   }
 
   onFormSubmit(props) {
+    const cliente_id = this.props.location.query.cliente_id;
     this.props.createOrden(props)
       .then(() => {
-        const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.params.id : "/orden_mgmnt";
+        const orden_mgmnt = (cliente_id) ? "/orden_mgmnt?cliente_id=" + cliente_id : "/orden_mgmnt";
         this.context.router.push(orden_mgmnt);
         toastr.success("Orden creado", `El Orden fué creado exitosamente.`);
       });
   }
 
   render() {
+    const cliente_id = this.props.location.query.cliente_id;
     const { handleSubmit, pristine, submitSucceeded } = this.props;
-    const orden_mgmnt = (this.props.params.id) ? "/orden_mgmnt?cliente_id=" + this.props.params.id : "/orden_mgmnt";
+    const orden_mgmnt = (cliente_id) ? "/orden_mgmnt?cliente_id=" + cliente_id : "/orden_mgmnt";
 
     return (
       <ContentWrapper>
@@ -96,7 +99,7 @@ class OrdenCreate extends Component {
 }
 
 OrdenCreate.propTypes = {
-  params: PropTypes.object,
+  location: PropTypes.object,
   initialize: PropTypes.func.isRequired,
   cliente: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,

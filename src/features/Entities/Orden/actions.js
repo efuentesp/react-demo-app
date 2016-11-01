@@ -207,9 +207,15 @@ export function deleteOrden(id) {
   });
 
   return dispatch => {
-    dispatch(fetchOrdenRequest());
+    dispatch(deleteOrdenRequest());
     return request
-      .then(res => dispatch(deleteOrdenSuccess(res)))
+      .then(res => {
+        if (res.status == 200){
+          dispatch(deleteOrdenSuccess(res));
+        } else {
+          dispatch(deleteOrdenFailure(res));
+        }
+      })
       .catch(ex => dispatch(deleteOrdenFailure(ex)));
   };
 }

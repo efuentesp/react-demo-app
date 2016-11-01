@@ -54,6 +54,23 @@ class OrdenManagement extends Component {
     }
   }
 
+  renderAddItem() {
+    const cliente_id = this.props.location.query.cliente_id;
+    if (cliente_id) {
+      return (
+        <Link className="btn btn-info" to={`/orden?cliente_id=${cliente_id}`}>
+          <em className="fa fa-plus" />
+        </Link>
+      );
+    } else {
+      return (
+        <Link className="btn btn-info" to={`/orden`}>
+          <em className="fa fa-plus" />
+        </Link>
+      );
+    }
+  }
+
   onSearchSubmit(form) {
     const page = 1;
     this.setState({
@@ -73,6 +90,7 @@ class OrdenManagement extends Component {
   }
 
   render() {
+    const cliente_id = this.props.location.query.cliente_id;
     return (
       <ContentWrapper>
         <ol className="breadcrumb pull-right">
@@ -90,17 +108,16 @@ class OrdenManagement extends Component {
           <Col sm={12}>
             <Row>
               <OrdenSearch
-                clienteId={this.props.location.query.cliente_id}
+                clienteId={cliente_id}
                 onSearchSubmit={this.onSearchSubmit.bind(this)} />
               <br />
             </Row>
             <Row>
-              <Link className="btn btn-info" to={`/orden/${this.props.location.query.cliente_id}`}>
-                <em className="fa fa-plus" />
-              </Link>
+              {this.renderAddItem()}
             </Row>
             <Row>
-              <OrdenList />
+              <OrdenList
+                clienteId={cliente_id} />
             </Row>
             {this.renderPagination()}
           </Col>
